@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView 
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="请先尝试锁屏时候按下home键，若按后返回桌面，请进行如下设置"/>
+    <Button
+        android:id="@+id/setting_bt1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="清除默认桌面设置并启用此锁屏" />
+
+    <Button
+        android:id="@+id/setting_bt2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="选择桌面" />
+
+</LinearLayout>

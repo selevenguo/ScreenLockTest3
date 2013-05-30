@@ -17,7 +17,7 @@ public class Constants {
 			R.drawable.t6, R.drawable.t7, R.drawable.t8, R.drawable.t9,
 			R.drawable.tm };
 
-	public static Bitmap bp_lockbt, bp_lockbac, bp_lockpic, bp_appbt, bp_title,
-			bp_appbac, bp_appno, bp_appdown, bp_sibac2,
-			bp_time[] = new Bitmap[11];
+	public static Bitmap bp_lockbt, bp_lockbac, bp_lockbac1, bp_lockpic,
+			bp_appbt, bp_appbt1, bp_title, bp_appbac, bp_appno, bp_appdown,
+			bp_sibac2, bp_time[] = new Bitmap[11];
 }

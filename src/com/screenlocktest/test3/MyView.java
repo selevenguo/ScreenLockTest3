@@ -29,7 +29,7 @@ public class MyView extends View {
 	private Camera camera;
 	private String time = "21:30", csdanddate = "2013/5/8       多云   30℃";
 	private int mode = -1, view = 0;
-	private Bitmap bp_s1bac;
+	private Bitmap bp_s1bac, bp_lockbac, bp_appbt;
 	private float pis;
 	private List<Drawable> apps;
 	private boolean isanimation = false;
@@ -47,6 +47,8 @@ public class MyView extends View {
 		pos = sp.getInt("pos", 0);
 		bp_s1bac = BitmapFactory.decodeResource(getResources(),
 				Constants.pacbacress[pos]);
+		bp_lockbac = Constants.bp_lockbac;
+		bp_appbt = Constants.bp_appbt;
 		paint = new Paint();
 		camera = new Camera();
 
@@ -111,9 +113,8 @@ public class MyView extends View {
 		}
 
 		drawLock(canvas);
-		canvas.drawBitmap(Constants.bp_appbt, getWidth() / 2
-				- Constants.bp_appbt.getWidth() / 2,
-				-Constants.bp_appbt.getHeight(), paint);
+		canvas.drawBitmap(bp_appbt, getWidth() / 2 - bp_appbt.getWidth() / 2,
+				-bp_appbt.getHeight(), paint);
 		drawTimeImage(canvas);
 		paint.setColor(0xffffffff);
 		paint.setTypeface(Typeface.DEFAULT_BOLD);
@@ -186,22 +187,29 @@ public class MyView extends View {
 	private void drawLock(Canvas canvas) {
 		// 基线y
 		float y = -getHeight() * 1 / 4;
-		canvas.drawBitmap(Constants.bp_lockbac, getWidth() / 2
-				- Constants.bp_lockbac.getWidth() / 2, y, paint);
+		Rect src = new Rect((int) offsitx, 0, bp_lockbac.getWidth(),
+				bp_lockbac.getHeight());
+		Rect dst = new Rect(
+				(int) (getWidth() / 2 - bp_lockbac.getWidth() / 2 + offsitx+20),
+				(int) y, bp_lockbac.getWidth() / 2 - bp_lockbac.getWidth() / 2
+						+ bp_lockbac.getWidth(),
+				(int) (y + bp_lockbac.getHeight()));
+		canvas.drawBitmap(bp_lockbac, src, dst, paint);
+
 		if (isdrawloacbac) {
 			canvas.drawBitmap(
 					Constants.bp_lockpic,
-					getWidth() / 2 - Constants.bp_lockbac.getWidth() / 2
+					getWidth() / 2 - bp_lockbac.getWidth() / 2
 							+ Constants.bp_lockbt.getWidth() + 10,
 					y
-							+ (Constants.bp_lockbac.getHeight() / 2 - Constants.bp_lockpic
+							+ (bp_lockbac.getHeight() / 2 - Constants.bp_lockpic
 									.getHeight() / 2), paint);
 		}
 		canvas.drawBitmap(
 				Constants.bp_lockbt,
-				getWidth() / 2 - Constants.bp_lockbac.getWidth() / 2 + offsitx,
+				getWidth() / 2 - bp_lockbac.getWidth() / 2 + offsitx,
 				y
-						+ (Constants.bp_lockbac.getHeight() / 2 - Constants.bp_lockbt
+						+ (bp_lockbac.getHeight() / 2 - Constants.bp_lockbt
 								.getHeight() / 2), paint);
 
 	}
@@ -304,7 +312,7 @@ public class MyView extends View {
 							- Constants.bp_lockbac.getWidth() / 2
 							&& prex <= getWidth() / 2
 									- Constants.bp_lockbac.getWidth() / 2
-									+ Constants.bp_lockbt.getWidth() 
+									+ Constants.bp_lockbt.getWidth()
 							&& prey >= getHeight()
 									* 3
 									/ 4
@@ -316,6 +324,7 @@ public class MyView extends View {
 									+ (Constants.bp_lockbac.getHeight() / 2 + Constants.bp_lockbt
 											.getHeight() / 2)) {
 						mode = 1;
+						bp_lockbac = Constants.bp_lockbac1;
 						isdrawloacbac = false;
 					} else if (prex >= getWidth() / 2
 							- Constants.bp_appbt.getWidth() / 2 - 20
@@ -324,6 +333,7 @@ public class MyView extends View {
 							&& prey >= getHeight()
 									- Constants.bp_appbt.getHeight() - 20
 							&& prey <= getHeight()) {
+						bp_appbt = Constants.bp_appbt1;
 						mode = 2;
 					} else {
 						mode = 3;
@@ -341,9 +351,9 @@ public class MyView extends View {
 						offsitx = event.getX() - prex;
 						if (offsitx < 0) {
 							offsitx = 0;
-						} else if (offsitx > Constants.bp_lockbac.getWidth()
+						} else if (offsitx > bp_lockbac.getWidth()
 								- Constants.bp_lockbt.getWidth()) {
-							offsitx = Constants.bp_lockbac.getWidth()
+							offsitx = bp_lockbac.getWidth()
 									- Constants.bp_lockbt.getWidth();
 						}
 						invalidate();
@@ -365,11 +375,17 @@ public class MyView extends View {
 							}
 						}
 					} else {
-						pis = 1 - (event.getY() - prey) / getHeight();
-						if (pis >= 1) {
-							pis = 1;
+						if (mode == 11) {
+							pis = 1 - (event.getY() - prey) / getHeight();
+							if (pis >= 1) {
+								pis = 1;
+							}
 						}
-						mode = 11;
+						if (event.getY() - prey > 10) {
+							mode = 11;
+						} else {
+							mode = 10;
+						}
 						invalidate();
 					}
 				}
@@ -377,7 +393,7 @@ public class MyView extends View {
 			case MotionEvent.ACTION_UP:
 				if (view == 0) {
 					if (mode == 1) {
-						if (offsitx > Constants.bp_lockbac.getWidth()
+						if (offsitx > bp_lockbac.getWidth()
 								- Constants.bp_lockbt.getWidth() * 3 / 2
 								&& oll != null) {
 							oll.onlock();
@@ -418,7 +434,11 @@ public class MyView extends View {
 					// }
 				} else if (view == 1) {
 					idup = getBTid(event.getX(), event.getY());
-					if (idup != -1 && iddown == idup) {
+					if (mode == 11) {
+						if (pis >= 0.0001 && pis <= 0.999999) {
+							new ScThread().start();
+						}
+					} else if (idup != -1 && iddown == idup) {
 						Log.i("test", "id:" + idup);
 						if (idup == 9) {
 							// pis = 0;
@@ -432,15 +452,13 @@ public class MyView extends View {
 								oacl.onapp(idup);
 							}
 						}
-					} else if (mode == 11) {
-						if (pis >= 0.0001 && pis <= 0.999999) {
-							new ScThread().start();
-						}
 					}
 				}
 				mode = -1;
 				offsitx = 0;
 				isdrawloacbac = true;
+				bp_lockbac = Constants.bp_lockbac;
+				bp_appbt = Constants.bp_appbt;
 				invalidate();
 				break;
 			default:

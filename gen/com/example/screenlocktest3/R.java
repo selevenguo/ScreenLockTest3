@@ -19,40 +19,42 @@ public final class R {
     public static final class drawable {
         public static final int appbac=0x7f020000;
         public static final int appbt=0x7f020001;
-        public static final int appno=0x7f020002;
-        public static final int ic_launcher=0x7f020003;
-        public static final int lockbac=0x7f020004;
-        public static final int lockbt=0x7f020005;
-        public static final int lockpic=0x7f020006;
-        public static final int s1bac00=0x7f020007;
-        public static final int s1bac01=0x7f020008;
-        public static final int s1bac02=0x7f020009;
-        public static final int s1bac03=0x7f02000a;
-        public static final int s1bac04=0x7f02000b;
-        public static final int s1bac05=0x7f02000c;
-        public static final int s1bac06=0x7f02000d;
-        public static final int s1bac07=0x7f02000e;
-        public static final int s1bac08=0x7f02000f;
-        public static final int s1bac09=0x7f020010;
-        public static final int s1bac10=0x7f020011;
-        public static final int s1bac11=0x7f020012;
-        public static final int s1bac12=0x7f020013;
-        public static final int s1bac13=0x7f020014;
-        public static final int s1bac14=0x7f020015;
-        public static final int s1bac15=0x7f020016;
-        public static final int t0=0x7f020017;
-        public static final int t1=0x7f020018;
-        public static final int t2=0x7f020019;
-        public static final int t3=0x7f02001a;
-        public static final int t4=0x7f02001b;
-        public static final int t5=0x7f02001c;
-        public static final int t6=0x7f02001d;
-        public static final int t7=0x7f02001e;
-        public static final int t8=0x7f02001f;
-        public static final int t9=0x7f020020;
-        public static final int title=0x7f020021;
-        public static final int tm=0x7f020022;
-        public static final int xia=0x7f020023;
+        public static final int appbt1=0x7f020002;
+        public static final int appno=0x7f020003;
+        public static final int ic_launcher=0x7f020004;
+        public static final int lockbac=0x7f020005;
+        public static final int lockbac1=0x7f020006;
+        public static final int lockbt=0x7f020007;
+        public static final int lockpic=0x7f020008;
+        public static final int s1bac00=0x7f020009;
+        public static final int s1bac01=0x7f02000a;
+        public static final int s1bac02=0x7f02000b;
+        public static final int s1bac03=0x7f02000c;
+        public static final int s1bac04=0x7f02000d;
+        public static final int s1bac05=0x7f02000e;
+        public static final int s1bac06=0x7f02000f;
+        public static final int s1bac07=0x7f020010;
+        public static final int s1bac08=0x7f020011;
+        public static final int s1bac09=0x7f020012;
+        public static final int s1bac10=0x7f020013;
+        public static final int s1bac11=0x7f020014;
+        public static final int s1bac12=0x7f020015;
+        public static final int s1bac13=0x7f020016;
+        public static final int s1bac14=0x7f020017;
+        public static final int s1bac15=0x7f020018;
+        public static final int t0=0x7f020019;
+        public static final int t1=0x7f02001a;
+        public static final int t2=0x7f02001b;
+        public static final int t3=0x7f02001c;
+        public static final int t4=0x7f02001d;
+        public static final int t5=0x7f02001e;
+        public static final int t6=0x7f02001f;
+        public static final int t7=0x7f020020;
+        public static final int t8=0x7f020021;
+        public static final int t9=0x7f020022;
+        public static final int title=0x7f020023;
+        public static final int tm=0x7f020024;
+        public static final int xia=0x7f020025;
     }
     public static final class id {
         public static final int appicon=0x7f070001;
@@ -62,6 +64,8 @@ public final class R {
         public static final int iv=0x7f070004;
         public static final int lv=0x7f070003;
         public static final int mv=0x7f070000;
+        public static final int setting_bt1=0x7f070008;
+        public static final int setting_bt2=0x7f070009;
         public static final int tv=0x7f070005;
     }
     public static final class layout {
@@ -69,6 +73,7 @@ public final class R {
         public static final int item_lv=0x7f030001;
         public static final int ui_appinfo=0x7f030002;
         public static final int ui_deleteapp=0x7f030003;
+        public static final int ui_setting=0x7f030004;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;

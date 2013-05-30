@@ -19,11 +19,13 @@ public class ScreenReciever extends BroadcastReceiver {
 			it.setClass(context, FullscreenActivity.class);
 			it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			context.startActivity(it);
+			abortBroadcast();
 		} else if (action.equals(Intent.ACTION_SCREEN_OFF)) {
 			if (FullscreenActivity.act != null) {
 				FullscreenActivity.act.finish();
 			}
 			Log.i("test", "bbbb");
+			abortBroadcast();
 		}
 	}
 
@@ -34,6 +36,7 @@ public class ScreenReciever extends BroadcastReceiver {
 			IntentFilter filter = new IntentFilter();
 			filter.addAction(Intent.ACTION_SCREEN_OFF);
 			filter.addAction(Intent.ACTION_SCREEN_ON);
+			filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
 			mContext.registerReceiver(ScreenReciever.this, filter);
 		}
 	}

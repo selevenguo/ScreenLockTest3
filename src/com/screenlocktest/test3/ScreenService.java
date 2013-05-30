@@ -46,8 +46,12 @@ public class ScreenService extends Service {
 				R.drawable.lockbt);
 		Constants.bp_lockpic = BitmapFactory.decodeResource(getResources(),
 				R.drawable.lockpic);
+		Constants.bp_lockbac1 = BitmapFactory.decodeResource(getResources(),
+				R.drawable.lockbac1);
 		Constants.bp_appbt = BitmapFactory.decodeResource(getResources(),
 				R.drawable.appbt);
+		Constants.bp_appbt1 = BitmapFactory.decodeResource(getResources(),
+				R.drawable.appbt1);
 		Constants.bp_title = BitmapFactory.decodeResource(getResources(),
 				R.drawable.title);
 		Constants.bp_appbac = BitmapFactory.decodeResource(getResources(),

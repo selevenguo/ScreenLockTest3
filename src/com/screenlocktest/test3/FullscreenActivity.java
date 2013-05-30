@@ -47,13 +47,6 @@ public class FullscreenActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		act = this;
 
-		if (!isServiceRunning(this, "com.screenlocktest.test3.ScreenService")) {
-			Log.i("test", "FullscreenActivity-first go service");
-			Intent intent = new Intent();
-			intent.setClass(this, ScreenService.class);
-			startService(intent);
-			finish();
-		}
 		packageManager = getPackageManager();
 
 		// 设置锁屏窗体
@@ -119,6 +112,10 @@ public class FullscreenActivity extends Activity {
 			@Override
 			public void onlock() {
 				// TODO Auto-generated method stub
+				// Intent intent = new Intent();
+				// intent.setAction(Intent.ACTION_SCREEN_OFF);
+				// Log.i("test", "asdas");
+				// sendBroadcast(intent);
 				FullscreenActivity.this.finish();
 			}
 		});
@@ -180,18 +177,6 @@ public class FullscreenActivity extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
 		return true;
-	}
-
-	public static boolean isServiceRunning(Context context, String SERVICENAME) {
-		ActivityManager manager = (ActivityManager) context
-				.getSystemService(Context.ACTIVITY_SERVICE);
-		for (RunningServiceInfo service : manager
-				.getRunningServices(Integer.MAX_VALUE)) {
-			if (SERVICENAME.equals(service.service.getClassName())) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	@Override
