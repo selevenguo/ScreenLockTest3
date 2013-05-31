@@ -15,6 +15,7 @@ public class ScreenReciever extends BroadcastReceiver {
 		String action = intent.getAction();
 		if (action.equals(Intent.ACTION_SCREEN_ON)) {
 			Log.i("test", "aaaa");
+			CacheState.isLockScreen = true;
 			Intent it = new Intent();
 			it.setClass(context, FullscreenActivity.class);
 			it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -22,6 +23,7 @@ public class ScreenReciever extends BroadcastReceiver {
 			abortBroadcast();
 		} else if (action.equals(Intent.ACTION_SCREEN_OFF)) {
 			if (FullscreenActivity.act != null) {
+				CacheState.isLockScreen = false;
 				FullscreenActivity.act.finish();
 			}
 			Log.i("test", "bbbb");

@@ -44,10 +44,26 @@ public class FullscreenActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		act = this;
 
+		sp = getSharedPreferences("applist", MODE_PRIVATE);
 		packageManager = getPackageManager();
+		String pacname = sp.getString("luncherpacname", null);
+		if (pacname == null) {
+			Intent intent = new Intent();
+			intent.setClass(FullscreenActivity.this, LuncherListActivity.class);
+			startActivity(intent);
+			FullscreenActivity.this.finish();
+		} else {
+			if (!CacheState.isLockScreen) {
+				Intent intent = packageManager
+						.getLaunchIntentForPackage(pacname);
+				startActivity(intent);
+				FullscreenActivity.this.finish();
+			}
+		}
+
+		// setContentView(R.layout.activity_main);
+		act = this;
 
 		// 设置锁屏窗体
 		view = getLayoutInflater().inflate(R.layout.activity_main, null);
@@ -56,11 +72,15 @@ public class FullscreenActivity extends Activity {
 		lockLayer = new LockLayer(this);
 		lockLayer.setLockView(view);
 		lockLayer.lock();
+
+		// setContentView(view);
+
 		slv = (MyView) view.findViewById(R.id.mv);
 		slv.setOll(new OnLockListener() {
 			@Override
 			public void onlock() {
 				// TODO Auto-generated method stub
+				CacheState.isLockScreen = false;
 				FullscreenActivity.this.finish();
 			}
 		});
@@ -84,6 +104,7 @@ public class FullscreenActivity extends Activity {
 								.getLaunchIntentForPackage(pacn);
 						if (intent != null) {
 							startActivity(intent);
+							CacheState.isLockScreen = false;
 							FullscreenActivity.this.finish();
 						}
 					}
@@ -129,7 +150,6 @@ public class FullscreenActivity extends Activity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		// 设置快速启动栏按钮
-		sp = getSharedPreferences("applist", MODE_PRIVATE);
 
 		lsd = new ArrayList<Drawable>();
 		lsn = new ArrayList<String>();
@@ -182,7 +202,7 @@ public class FullscreenActivity extends Activity {
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
-		lockLayer.unlock();
+		// lockLayer.unlock();
 		hand.removeCallbacks(run);
 		super.onDestroy();
 	}

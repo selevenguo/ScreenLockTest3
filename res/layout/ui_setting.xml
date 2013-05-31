@@ -4,18 +4,40 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView 
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:text="请先尝试锁屏时候按下home键，若按后返回桌面，请进行如下设置"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请先尝试锁屏时候按下home键，若按后返回桌面，请进行如下设置\n" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="第一步:选择“清除默认设置”" />
+
     <Button
         android:id="@+id/setting_bt1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="清除默认桌面设置并启用此锁屏" />
+        android:text="清除默认桌面设置" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="\n第二步：请勾选“设为默认选项”，并选择本锁屏程序" />
 
     <Button
         android:id="@+id/setting_bt2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="启用此锁屏" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="\n\n选择使用的桌面程序" />
+
+    <Button
+        android:id="@+id/setting_bt3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="选择桌面" />

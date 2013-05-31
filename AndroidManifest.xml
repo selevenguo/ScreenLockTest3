@@ -28,9 +28,20 @@
             </intent-filter>
         </activity>
         <activity android:name="com.screenlocktest.test3.APPInfoActivity" />
-        <activity android:name="com.screenlocktest.test3.FullscreenActivity" />
         <activity
-            android:name="com.screenlocktest.test3.DeleteAppActivity"/>
+            android:name="com.screenlocktest.test3.FullscreenActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.MONKEY" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.screenlocktest.test3.DeleteAppActivity" />
+        <activity android:name="com.screenlocktest.test3.LuncherListActivity" />
 
         <receiver android:name="com.screenlocktest.test3.StartServiceReciever" >
             <intent-filter>

@@ -6,6 +6,7 @@ import android.app.ActivityManager.RunningServiceInfo;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
@@ -19,7 +20,9 @@ import android.widget.Button;
 import com.example.screenlocktest3.R;
 
 public class SettingActivity extends Activity {
-	private Button bt1, bt2;
+	private Button bt1, bt2, bt3;
+	private Intent mainIntent1;
+	private ResolveInfo rs;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,16 +37,18 @@ public class SettingActivity extends Activity {
 		setContentView(R.layout.ui_setting);
 
 		bt1 = (Button) findViewById(R.id.setting_bt1);
+		bt2 = (Button) findViewById(R.id.setting_bt2);
+		bt3 = (Button) findViewById(R.id.setting_bt3);
+		mainIntent1 = new Intent();
+		mainIntent1.addCategory("android.intent.category.HOME");
+		mainIntent1.setAction("android.intent.action.MAIN");
+
 		bt1.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent mainIntent1 = new Intent();
-				mainIntent1.addCategory("android.intent.category.HOME");
-				mainIntent1.setAction("android.intent.action.MAIN");
-				ResolveInfo rs = getPackageManager().resolveActivity(
-						mainIntent1, PackageManager.MATCH_DEFAULT_ONLY);
+
 				if ("com.android.internal.app.ResolverActivity"
 						.equals(rs.activityInfo.name)) {
 					// 暂无
@@ -61,6 +66,70 @@ public class SettingActivity extends Activity {
 				}
 			}
 		});
+
+		bt2.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(Intent.ACTION_MAIN);
+				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				intent.addCategory(Intent.CATEGORY_HOME);
+				SettingActivity.this.startActivity(intent);
+			}
+		});
+
+		bt3.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();
+				intent.setClass(SettingActivity.this, LuncherListActivity.class);
+				startActivity(intent);
+			}
+		});
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		rs = getPackageManager().resolveActivity(mainIntent1,
+				PackageManager.MATCH_DEFAULT_ONLY);
+		Log.i("test", rs.activityInfo.name + ":" + getPackageName());
+		if ("com.android.internal.app.ResolverActivity"
+				.equals(rs.activityInfo.name)) {
+			// 暂无
+			bt1.setClickable(false);
+			bt2.setClickable(true);
+			bt3.setClickable(true);
+			bt1.setEnabled(false);
+			bt2.setEnabled(true);
+			bt3.setEnabled(true);
+		} else if (rs.activityInfo.name.equals("com.screenlocktest.test3.FullscreenActivity")) {
+			bt1.setClickable(false);
+			bt2.setClickable(false);
+			bt3.setClickable(true);
+			bt1.setEnabled(false);
+			bt2.setEnabled(false);
+			bt3.setEnabled(true);
+		} else {
+			bt1.setClickable(true);
+			bt2.setClickable(false);
+			bt3.setClickable(false);
+			bt1.setEnabled(true);
+			bt2.setEnabled(false);
+			bt3.setEnabled(false);
+		}
+		SharedPreferences sp = getSharedPreferences("applist", MODE_PRIVATE);
+		String lunchername = sp.getString("lunchername", null);
+		if (lunchername == null) {
+			lunchername = "请选择桌面";
+		} else {
+			lunchername = "已选择：" + lunchername;
+		}
+		bt3.setText(lunchername);
+		super.onResume();
 	}
 
 	public static void showInstalledAppDetails(Context context,

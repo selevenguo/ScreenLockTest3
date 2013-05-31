@@ -88,7 +88,6 @@ public class MyView extends View {
 	}
 
 	private void drawScreen1(Canvas canvas) {
-		Log.i("test", "ondraw");
 		Matrix mt = new Matrix();
 		canvas.save();
 		camera.save();
@@ -246,9 +245,6 @@ public class MyView extends View {
 	}
 
 	private void draw9APP(Canvas canvas) {
-		if (apps != null) {
-			Log.i("test", "" + apps.size());
-		}
 		float width = (float) (getWidth() - 4) / 3;
 		float height = (float) (getHeight() - 8 - 40 - Constants.bp_appdown
 				.getHeight()) / 3;
@@ -439,7 +435,6 @@ public class MyView extends View {
 							new ScThread().start();
 						}
 					} else if (idup != -1 && iddown == idup) {
-						Log.i("test", "id:" + idup);
 						if (idup == 9) {
 							// pis = 0;
 							// view = 0;
